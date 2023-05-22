@@ -1,0 +1,185 @@
+* {
+  margin: 0; /*aqui é espaçamento interno*/
+  padding: 0; /*aqui e espaçamento esterno*/
+  box-sizing: border-box; /*aqui e para que as definições de tamanho dos elementos não faça com que a caixa principal almente de tamanho, respeitando os valores definidos*/
+}
+
+:root {
+  /*aqui vamos puxar a raiz do codigo do site*/
+  font-size: 16px;
+}
+
+::-webkit-scrollbar {
+  /*aqui estamos chamando para definir configurações do navegador como a barra de rolagem*/
+  width: 8px; /*largura, /*aqui eatamos definindo a largura da barra de rolagem*/
+}
+
+::-webkit-scrollbar-track {
+  background-color: #2c2c31; /*aqui estamos definindo a cor da linha da barra de rolagem*/
+}
+
+::-webkit-scrollbar-thumb {
+  /*aqui e a barrinha da barra de rolagem*/
+  background-color: #9e9ea0;
+}
+
+@keyframes entering {
+  /*aqui vamos adicionar um efeito de frame na pagina, podemos definir por % onde deve mudar as coisas*/
+  from {
+    opacity: 0;
+    transform: translateY(
+      -200px
+    ); /*aqui vai fazer uma transição na vertical, quando o px é negativo ele vai para fora da tela*/
+  } /*aqui podemos definir de forma mais rapita o destino do frame, de onde ele vem e onde ele vai, usamos o % se quisermos editar freme por freme*/
+  to {
+    opacity: 1;
+    transform: translateY(0); /*aqui ele volta ao normal*/
+  }
+
+  /*
+  0% {
+    background-color: red;
+  }
+  30% {
+    background-color: green;
+  }
+  78% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+  */
+}
+
+body {
+  background-color: #121215;
+  color: #eaeaea;
+  font-family: "Roboto", sans-serif; /*aqui temos a famialia da fonte, a fonte em sim Roboto nesse caso, e se por algum motivo essa fonte n funcionar, temos a fonte alternativa sans-serif*/
+  display: grid; /*aqui vamos definir para que o aside seja uma coluna e o nav seja outra, para ficar um do lado do outro*/
+  grid-template-areas: "profile timeline"; /*aqui vamos defnir o nome das colunas*/
+  grid-template-columns: 1fr 1fr; /*aqui vamos definir o tamanho de cada coluna,vamos deixar o tamanho flexivel, então usamos o 1fr,uma fração da pagina para cada uma*/
+  grid-template-rows: 100vh; /*aqui vamos definir a linha de separação das colunas ,usamos o 100vh.Para que ele use toda altura disponvel*/
+}
+
+nav {
+  padding: 64px;
+  grid-area: timeline;
+
+  overflow-y: scroll; /*aqui e para essa parte não ter rolamento , deixar ela fixa*/
+
+  animation: entering 0.7s ease-in-out;
+}
+
+.memory {
+  display: flex; /*aqui e para deixar os elementos da div flexiveis*/
+  flex-direction: column; /*o Display flex, deixa os elementos um do lado do outro, para deixarmos um em baixo do outro usamos o flex direction*/
+  gap: 16px; /*aqui definimos um espaçamento entre os elementos*/
+  text-decoration: none; /*aqui e para tirar o andelaine*/
+  margin-bottom: 64px;
+}
+
+.memory small {
+  color: #bebebf;
+  font-size: 0.75rem; /*aqui e 75% de 16px, para que a fonte se adapte a telas diferentes usando um tamanho de referencia*/
+}
+
+.memory h1 {
+  font-size: 2rem;
+  color: #eaeaea;
+}
+
+.memory img {
+  width: 100%; /*largura*/
+  height: 280px; /*altura*/
+  object-fit: cover; /*essa propriedade e para a imagem n esticar e conforme o tamanho da tela ela conseguir se adaptar*/
+  border-radius: 8px; /*aqui e para termos bordas arredondadas*/
+  transition: transform 0.3s ease-in-out;
+  /*aqui colocamos a transição no elemento que vamos modificar e escolhemos o tipo de transição, o 0.3 são os segundos o tempo q escolhemos e o ease e para escolher se queremos que a transição comece rapida e termine devagar ou ao contrario*/
+}
+
+.memory:hover img {
+  transform: scale(
+    1.1
+  ); /*aqui utilizamos para dar efeito de zoom na foto, e colocamos o quanto queremos que almente em escala, 1.1 e igual a 10%*/
+}
+
+.memory div {
+  width: 100%; /*largura*/
+  height: 280px; /*altura*/
+  overflow: hidden; /*aqui vamos usar para quando der zoom na foto ele n exceder o tamanho original definido*/
+  border-radius: 8px;
+}
+
+.memory p {
+  font-size: 1.2rem;
+  color: #bebebf;
+  line-height: 28px; /*aqui e para espaçamento de linha*/
+}
+
+aside {
+  grid-area: profile;
+
+  display: flex; /*AQUI E PARA DIZER QUE VAMOS UTILIZAR O FLEX BOX PARA ALINHAR OS ITENS*/
+  flex-direction: column; /*AQUI E PARA DIRECIONAR OS ITENS A FICAREM EM COLUNAS , UM EM BAIXO DO OUTRO*/
+  align-items: center; /*PARA O ITEM FICA CENTRALIZADO NA HORIZONTAL*/
+  justify-content: center; /*AQUI E PARA FICAR CENTRALIZADO NA VERTICAL TAMBEM*/
+  gap: 20px;
+
+  border-right: 1px solid;
+  border-image: linear-gradient(#727275, #2c2c31) 1; /*linear gradient e para que a cor da borda seja de forma gradiente nas cores do mais escuro pro mais claro por exemplo*/
+
+  background-image: url("./assets/background.svg"); /*adicionando imagem de fundo*/
+  background-position: top right; /*posicionando a imagem */
+  background-repeat: no-repeat; /*para que a imagem n se repita usamos essa tag para n ficar cortada*/
+  background-size: auto 100%; /*aqui e para a imagem se ajutar melhor*/
+}
+
+aside * {
+  animation: entering 0.7s ease-in-out; /*para que o backgroud e a borda do aside n se mova com o frame, usamos o aside * para selecionar somente os elementos do aside*/
+}
+
+aside img:nth-child(2) {
+  /*aqui e para selecionar o segunda filho ou seja a segunda imagem do aside*/
+  width: 160px;
+  height: 160px;
+  border-radius: 50%; /*aqui e para arredondar a borda da foto*/
+
+  border: 4px solid transparent;
+  background: linear-gradient(#d39e33, #ed5636, #633bbc) padding-box,
+    linear-gradient(260deg, #d39e33, #ed5636, #633bbc) border-box; /*260deg é a posição, significa 260 graus*/
+}
+
+aside p {
+  font-size: 2rem;
+  text-align: center;
+}
+
+aside span {
+  font-size: 0.75rem;
+  color: #9e9ea0;
+}
+
+@media (max-width: 768px) {
+  :root {
+    font-size: 14px; /*aqui se  a tela for menos q 768px todas as outras font size vão se ajustar ao root dessa comdição*/
+  }
+  /*aqui estamos fazendos a responsividade, então quando uma tela ser menor que 768px sera aplicado o que estiver dentro desse comando*/
+  body {
+    grid-template-columns: 1fr; /*aqui estamos definindo para a timeline e o perfil ficar um de baixo do outro quando aberto pelo celular*/
+    grid-template-rows: 0.2fr 0.8fr;
+    grid-template-areas:
+      "profile"
+      "timeline";
+  }
+
+  aside {
+    border-right: none;
+    padding: 32px 12px; /*aqui estamos tirando a borda do meio,pois no celular um item ficara em baixo do outro n precisando de separação*/
+  }
+
+  nav {
+    overflow-y: visible; /*aqui e para que toda a tela role para baixo e n só a timeline*/
+    padding: 22px; /*diminuir espaçamento interno*/
+  }
+}
